@@ -44,6 +44,7 @@ class Ace < FaceCard
   end
 end
 
+
 class Deck
   
   attr_reader:cards
@@ -97,13 +98,14 @@ describe Card do
 
   it "should tell me what it is when facecard or ace" do
     Card.build(suit: :clubs, value: :queen).to_s.should eq("Q-clubs")
+    Card.build(suit: :clubs, value: :ace).to_s.should eq("A-clubs")
   end
+
 end
 
 describe Deck do
   it "should build be 52 cards" do
     deck = Deck.build
     deck.cards.length.should eq(52)
-    puts deck.cards
   end
 end
