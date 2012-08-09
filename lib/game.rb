@@ -47,6 +47,22 @@ class Game
     end
   end
   
+  def play(display_output, get_input)
+    while true do
+      display_output << "Your hand!: #{player_hand.cards}\n"
+      display_output << "Hit or no? (Y/N)\n"
+      command = get_input.gets
+      if command =~ /Y/i
+        hit!
+      else
+        stand!
+        break
+      end
+    end
+    display_output << "Dealer hand!: #{dealer_hand.cards}\n"
+    display_output << winner << "\n"
+  end
+  
   private
   
   def play_dealer_hand!
