@@ -30,6 +30,6 @@ class Deck
   end
   
   def shuffle!
-    cards.shuffle
+    cards.shuffle!
   end
 end

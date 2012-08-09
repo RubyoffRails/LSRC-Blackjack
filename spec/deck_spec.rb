@@ -27,7 +27,7 @@ describe Deck do
   it "should shuffle when told to" do
     deck = Deck.new
     mock_cards = mock
-    mock_cards.should_receive(:shuffle)
+    mock_cards.should_receive(:shuffle!)
     deck.stub(:cards) {mock_cards}
     deck.shuffle!
   end
