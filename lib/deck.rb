@@ -10,12 +10,10 @@ class Deck
   end
 
   def << (card)
-    raise BadInputError.new("YOU HAVE FAILED") unless valid_card?(card)
+    unless Card.valid_card?(card)
+      raise BadInputError.new("YOU HAVE FAILED")
+    end 
     @cards << card
-  end
-  
-  def valid_card?(card)
-    card.respond_to?(:suit) && card.respond_to?(:value)
   end
   
   def self.build

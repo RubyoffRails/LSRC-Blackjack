@@ -4,8 +4,8 @@ class Hand
   
   attr_reader :cards
     
-  def initialize(first, second)
-    @cards = [first, second]
+  def initialize
+    @cards = []
   end
   
   def hit!(deck)
@@ -13,10 +13,14 @@ class Hand
   end
   
   def value
-    @cards.inject(0) {|total, card| total += card.value}
+    cards.inject(0) {|total, card| total += card.value}
   end
   
   def busted?
     value > 21
+  end
+  
+  def playable?
+    value > 0 && !busted?
   end
 end

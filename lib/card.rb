@@ -18,6 +18,10 @@ class Card
     defaults.merge(extra_params)
   end
   
+  def self.valid_card?(card)
+    card.respond_to?(:suit) && card.respond_to?(:value)
+  end
+  
   def initialize(args)
     @suit = args.fetch(:suit)
     @value = args.fetch(:value)
