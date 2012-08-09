@@ -151,11 +151,6 @@ describe Deck do
     deck.shuffle!
   end
 
-  it "should shuffle when told to" do
-    deck = Deck.new
-    deck.stub(:cards) {double(:oh_hai => "OH HAI")}
-    puts deck.cards.oh_hai
-  end
 end
 
 
