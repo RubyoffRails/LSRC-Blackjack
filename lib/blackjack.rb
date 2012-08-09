@@ -1,5 +1,4 @@
-require "blackjack/version"
-
-module Blackjack
-  # Your code goes here...
-end
+require_relative "./game"
+require_relative "./card"
+require_relative "./deck"
+require_relative "./hand"
