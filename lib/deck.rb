@@ -3,7 +3,7 @@ require_relative "./card"
 class Deck
   class BadInputError < StandardError; end
   
-  attr_reader:cards
+  attr_reader :cards
   
   def initialize
     @cards = []
@@ -31,5 +31,9 @@ class Deck
   
   def shuffle!
     cards.shuffle!
+  end
+  
+  def deal!
+    cards.shift
   end
 end

@@ -31,5 +31,22 @@ describe Deck do
     deck.stub(:cards) {mock_cards}
     deck.shuffle!
   end
+  
+  describe "#deal!" do
+    
+    it "should give me the top/first card" do
+      deck = Deck.build
+      first_card = deck.cards.first
+      card = deck.deal!
+      card.should eq(first_card)
+    end
+    
+    it "should have one less card" do
+      deck = Deck.build
+      expect{
+        deck.deal!
+      }.to change(deck.cards, :count).by(-1)
+    end
+  end
 
 end
