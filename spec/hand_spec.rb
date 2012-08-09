@@ -42,3 +42,39 @@ describe Hand do
   end
 
 end
+
+describe DealerHand do
+
+  it "should hit if < 16" do
+    cards = [ stub(:value => 10), 
+              stub(:value => 5), 
+              stub(:value => 5), 
+              stub(:value => 11)]
+    deck = Deck.new
+    deck.stub(:cards => cards)
+    subject.play!(deck)
+    subject.value.should eq(20)
+  end
+  
+  it "should not hit if 16" do
+    cards = [ stub(:value => 10), 
+              stub(:value => 6), 
+              stub(:value => 5), 
+              stub(:value => 11)]
+    deck = Deck.new
+    deck.stub(:cards => cards)
+    subject.play!(deck)
+    subject.value.should eq(16)
+  end
+  
+  it "should not hit if 21" do
+    cards = [ stub(:value => 10), 
+              stub(:value => 11), 
+              stub(:value => 5), 
+              stub(:value => 11)]
+    deck = Deck.new
+    deck.stub(:cards => cards)
+    subject.play!(deck)
+    subject.value.should eq(21)
+  end
+end

@@ -24,3 +24,12 @@ class Hand
     value > 0 && !busted?
   end
 end
+
+class DealerHand < Hand
+  def play!(deck)
+    if value < 16
+      hit!(deck)
+      play!(deck)
+    end
+  end
+end
