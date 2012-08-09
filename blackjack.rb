@@ -1,3 +1,5 @@
+require 'rspec'
+
 class Card
 
   attr_reader :suit, :value
@@ -44,24 +46,37 @@ class Ace < FaceCard
   end
 end
 
-
 class Deck
+  class BadInputError < StandardError; end
   
   attr_reader:cards
   
-  def initialize(cards)
-    @cards = cards
+  def initialize
+    @cards = []
+  end
+
+  def << (card)
+    raise BadInputError.new("YOU HAVE FAILED") unless valid_card?(card)
+    @cards << card
+  end
+  
+  def valid_card?(card)
+    card.respond_to?(:suit) && card.respond_to?(:value)
   end
   
   def self.build
-    cards = []
+    deck = new
     [:club, :diamond, :heart, :spade].each do |suit|
       possibles = [2,3,4,5,6,7,8,9,10,:jack, :queen, :king, :ace]
       possibles.each do |value|
-        cards << Card.build(suit: suit, value: value)
+        deck << Card.build(suit: suit, value: value)
       end
     end
-    new(cards)
+    deck
+  end
+  
+  def shuffle!
+    cards.shuffle
   end
 end
 
@@ -103,9 +118,44 @@ describe Card do
 
 end
 
+
 describe Deck do
   it "should build be 52 cards" do
     deck = Deck.build
     deck.cards.length.should eq(52)
   end
+  it "should have 4 suits" do
+    cards = Deck.build.cards
+    suits = cards.map{|card| card.suit}.uniq
+    suits.length.should eq(4)
+    [:heart, :club, :spade, :diamond].all?{|suit| suits.include?(suit)}
+  end
+  it "should not let in integers" do
+    deck = Deck.new
+    expect{
+      deck << 5
+    }.to raise_error(Deck::BadInputError)
+  end
+  it "should not let in integers" do
+    deck = Deck.new
+    expect{
+      deck << FaceCard.new(suit: :club, value: 5)
+    }.to change(deck.cards, :count).by(1)
+  end
+  
+  it "should shuffle when told to" do
+    deck = Deck.new
+    mock_cards = mock
+    mock_cards.should_receive(:shuffle)
+    deck.stub(:cards) {mock_cards}
+    deck.shuffle!
+  end
+
+  it "should shuffle when told to" do
+    deck = Deck.new
+    deck.stub(:cards) {double(:oh_hai => "OH HAI")}
+    puts deck.cards.oh_hai
+  end
 end
+
+
